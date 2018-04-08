@@ -1,0 +1,5 @@
+John Smith,1,34.90,34.5
+Sally Jones,2,66.43,20
+Joe Doe,3,50.23,40
+Erica Erikson,4,22.92,40
+Harry James,5,9000,100
