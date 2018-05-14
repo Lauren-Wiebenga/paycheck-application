@@ -1,60 +1,71 @@
 /*
- * Date:   3/30/18
+ * Date:   2/27/18
  * Author: Lauren Wiebenga
- * File:   FloatToText.java
+ * File:   PaycheckApplication/src/business/Employee.java
  */
-package business;
+package model;
 
-public class FloatToText {
+public class Employee implements DoubleToText {
     /*
-     *  STATIC VARIABLES 
+     *  INSTANCE VARIABLES 
      */
-    final private static String[] PLACES = {
-        "Hundred", "Thousand", "Million"  
-    };
-    final private static String[][] NUMBERS = {
-        {
-            "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
-            "Nine"
-        },
-        {
-            "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
-            "Seventeen", "Eighteen", "Nineteen"
-        },
-        {
-            "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixy", "Seventy",
-            "Eighty", "Ninety"
-        }
-    };
+    private final String name;
+    final private int empID; // immutable
+    private final Double wage;
+    private final Double hours;
+    private String payDue;
     
     /*
-     *  CONSTRUCTORS 
+     *  CONSTRUCTORS
      */
-    public FloatToText() { // default constructor
+    public Employee(String name, int id, Double wage, Double hours) {
+        this.name = name;
+        this.empID = id;
+        this.wage = wage;
+        this.hours = hours;
+        this.payDue = getTextAmount(wage * hours);
     }
     
     /*
-     *  GET AND SET METHODS 
+     *  GET AND SET METHODS
      */
-    private static int setDollars(Double amount) {
-        int wholeAmount = (int)(amount * 100);
-        return wholeAmount / 100;
+    public String getName() {
+        return this.name;
     }
-    private static int setCents(Double amount) {
-        int wholeAmount = (int)(amount * 100);
-        return wholeAmount % 100;
+    public String getEmpID() {
+        return Integer.toString(this.empID);
+    }
+    public String getWage() {
+        return Double.toString(this.wage);
+    }
+    public String getHours() {
+        return Double.toString(this.hours);
+    }
+    public String getPayDue() {
+        return this.payDue;
     }
     
     /*
      *  FUNCTIONAL METHODS 
      */
-    public static String getTextAmount(Double amount) {
+    @Override
+    public int setDollars(Double amount) {
+        int wholeAmount = (int)(amount * 100);
+        return wholeAmount / 100;
+    }
+    @Override
+    public int setCents(Double amount) {
+        int wholeAmount = (int)(amount * 100);
+        return wholeAmount % 100;
+    }
+    @Override
+    public String getTextAmount(Double amount) {
         int dollars = setDollars(amount);
         int cents = setCents(amount);
         return toTextAmount(dollars) + " Dollars and " + toTextAmount(cents) + " Cents";
     }
-    // convert numeric amount to text amount
-    private static String toTextAmount(int amount) {
+    @Override
+    public String toTextAmount(int amount) {
         if (amount == 0) { // handle 0 amount
             return "Zero";
         }
@@ -114,5 +125,5 @@ public class FloatToText {
             i++;
         }
         return result.trim();
-    }         
+    }
 }
