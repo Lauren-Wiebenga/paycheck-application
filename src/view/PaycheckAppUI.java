@@ -5,18 +5,25 @@
  */
 package view;
 
+import control.Controller;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import model.Employee;
+
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PaycheckAppUI extends javax.swing.JFrame {
-
+    private Controller controller;
+    private Employee selectedEmp;
+    private boolean isInitialized;
     /**
      * Creates new form PaycheckAppUI
      */ 
     
     public PaycheckAppUI() {
-        
+        initComponents();
+        controller = new Controller();
     }
 
     /**
@@ -50,8 +57,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuOpen = new javax.swing.JMenuItem();
-        menuSaveChanges = new javax.swing.JMenuItem();
-        menuSaveAs = new javax.swing.JMenuItem();
         menuExit = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuHow = new javax.swing.JMenuItem();
@@ -254,17 +259,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         menuOpen.setText("Open File");
         menuFile.add(menuOpen);
 
-        menuSaveChanges.setText("Save Changes");
-        menuSaveChanges.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuSaveChangesActionPerformed(evt);
-            }
-        });
-        menuFile.add(menuSaveChanges);
-
-        menuSaveAs.setText("Save As");
-        menuFile.add(menuSaveAs);
-
         menuExit.setText("Exit");
         menuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,10 +297,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuSaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSaveChangesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuSaveChangesActionPerformed
-
     private void menuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuExitActionPerformed
@@ -316,16 +306,29 @@ public class PaycheckAppUI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBttnActionPerformed
 
     private void chooseFileTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseFileTextMouseClicked
-        
         JFileChooser f = new JFileChooser("."); // display current dir
-        f.setDialogTitle("Select Employee File:");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file(*.csv)", "CSV");
-        f.setFileFilter(filter); // filter for CSV files
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file(*.csv)", "CSV");
+//        f.setFileFilter(filter); // filter for CSV files
         JDialog jd = new JDialog();
         int rval = f.showOpenDialog(jd);
-        
+        String filename = f.getSelectedFile().getAbsolutePath();
+        try {
+            controller.createDB(filename);
+            isInitialized = true;
+        }
+        catch (FileNotFoundException ex) {
+            isInitialized = false;
+        }
+        catch (IOException ioe) {
+            isInitialized = false;
+        }
     }//GEN-LAST:event_chooseFileTextMouseClicked
 
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -378,8 +381,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuHow;
     private javax.swing.JMenuItem menuOpen;
-    private javax.swing.JMenuItem menuSaveAs;
-    private javax.swing.JMenuItem menuSaveChanges;
     private javax.swing.JRadioButton nameRadioBttn;
     private javax.swing.JRadioButton numberRadioBttn;
     private javax.swing.JPanel optionPanel;

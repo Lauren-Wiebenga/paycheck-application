@@ -21,15 +21,7 @@ public class Controller {
         return database.query(emp);
     }
     
-    public void createDB(String file) {
-        try {
-            database = new EmpDB(file);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    public void createDB(String file) throws FileNotFoundException, IOException {
+        database = new EmpDB(file);
     }
 }
