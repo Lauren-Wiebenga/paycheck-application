@@ -20,15 +20,18 @@ public class Controller {
     }
     
     public Employee getEmployee(String emp) throws NullPointerException {
-        return database.query(emp);
+        try {
+            int e = Integer.parseInt(emp);
+            return database.query(e);
+        }
+        catch (IllegalArgumentException e) {
+            return database.query(emp);
+        }
     }
     
-    public Employee getEmployee(Integer emp) throws NullPointerException {
-        return database.query(emp);
-    }
-    
-    public void buildTable(JTable table) {
+    public void buildTable(JTable table, boolean name) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        database.buildTable(model);
+        model.setRowCount(0);
+        database.buildTable(model,name);
     }
 }

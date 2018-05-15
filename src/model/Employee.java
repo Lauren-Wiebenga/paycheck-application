@@ -24,8 +24,8 @@ public class Employee implements DoubleToText {
         this.empID = id;
         this.wage = wage;
         this.hours = hours;
-        this.payDue = String.format("%.2f", wage * hours);
-        this.amount = getTextAmount(Double.parseDouble(this.payDue));
+        this.payDue = String.format("$%.2f", wage * hours);
+        this.amount = getTextAmount(wage * hours);
     }
     
     /*

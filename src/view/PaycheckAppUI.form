@@ -2,7 +2,7 @@
 
 <Form version="1.6" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="searchOptions">
+    <Component class="javax.swing.ButtonGroup" name="sortOptions">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBar">
       <SubComponents>
@@ -145,24 +145,23 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="searchTextField" min="-2" pref="276" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="searchBttn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Component id="searchByLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="nameRadioBttn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="numberRadioBttn" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="searchTextField" min="-2" pref="276" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="searchBttn" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jSeparator1" min="-2" pref="356" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jSeparator1" min="-2" pref="356" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -220,25 +219,31 @@
             </Component>
             <Component class="javax.swing.JLabel" name="searchByLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Search By:"/>
+                <Property name="text" type="java.lang.String" value="Sort By:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="nameRadioBttn">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="searchOptions"/>
+                  <ComponentRef name="sortOptions"/>
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Employee Name"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameRadioBttnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="numberRadioBttn">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="searchOptions"/>
+                  <ComponentRef name="sortOptions"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Employee Number"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberRadioBttnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
               <Properties>
@@ -251,6 +256,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="search"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchBttnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -363,6 +371,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearBttnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

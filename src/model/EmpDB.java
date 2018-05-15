@@ -26,9 +26,9 @@ public class EmpDB {
         empName = new TreeMap<>();
         empID = new TreeMap<>();
         pattern = Pattern.compile(
-                "([a-zA-Z -,]{1,40}),"
-              + "(\\d{1,25}),"
-              + "\\$(\\d{1,4}\\.\\d{2}),"
+                "([a-zA-Z \\-,]{1,}),"
+              + "(\\d{1,}),"
+              + "\\$(\\d{1,}\\.\\d{2}),"
               + "(\\d{1,3}\\.\\d{1})");
         loadData(file);
     }
@@ -50,9 +50,16 @@ public class EmpDB {
         }
     }
     
-    public void buildTable(DefaultTableModel model) {
-        for (Map.Entry<String,Employee> entry : empName.entrySet()) {
-            model.addRow(new Object[]{entry.getValue().getName(),entry.getValue().getEmpID()});
+    public void buildTable(DefaultTableModel model, boolean x) {
+        if (x) {
+            for (Map.Entry<String,Employee> entry : empName.entrySet()) {
+                model.addRow(new Object[]{entry.getValue().getName(),entry.getValue().getEmpID()});
+            }
+        }
+        else {
+            for (Map.Entry<Integer,Employee> entry : empID.entrySet()) {
+                model.addRow(new Object[]{entry.getValue().getName(),entry.getValue().getEmpID()});
+            }
         }
     }
     

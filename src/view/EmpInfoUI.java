@@ -72,8 +72,17 @@ public class EmpInfoUI extends javax.swing.JFrame {
 
         payDueLabel.setText("Pay Due:");
 
+        nameTextField.setEditable(false);
+
+        empIDTextField.setEditable(false);
+
+        hoursTextField.setEditable(false);
+
+        payDueTextField.setEditable(false);
+
         amountLabel.setText("Amount:");
 
+        amountTextArea.setEditable(false);
         amountTextArea.setColumns(20);
         amountTextArea.setRows(5);
         jScrollPane1.setViewportView(amountTextArea);
