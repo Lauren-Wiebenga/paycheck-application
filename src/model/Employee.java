@@ -14,6 +14,7 @@ public class Employee implements DoubleToText {
     private final Double wage;
     private final Double hours;
     private String payDue;
+    private String amount;
     
     /*
      *  CONSTRUCTORS
@@ -23,7 +24,8 @@ public class Employee implements DoubleToText {
         this.empID = id;
         this.wage = wage;
         this.hours = hours;
-        this.payDue = getTextAmount(wage * hours);
+        this.payDue = String.format("%.2f", wage * hours);
+        this.amount = getTextAmount(Double.parseDouble(this.payDue));
     }
     
     /*
@@ -43,6 +45,9 @@ public class Employee implements DoubleToText {
     }
     public String getPayDue() {
         return this.payDue;
+    }
+    public String getAmount() {
+        return this.amount;
     }
     
     /*

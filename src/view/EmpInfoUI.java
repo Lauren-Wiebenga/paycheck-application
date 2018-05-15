@@ -20,6 +20,11 @@ public class EmpInfoUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(this);
         this.currentEmp = emp;
+        nameTextField.setText(emp.getName());
+        empIDTextField.setText(emp.getEmpID());
+        hoursTextField.setText(emp.getHours());
+        payDueTextField.setText(emp.getPayDue());
+        amountTextArea.setText(emp.getAmount());
     }
 
     /**
@@ -51,6 +56,11 @@ public class EmpInfoUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         closeBttn.setText("Close");
+        closeBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeBttnActionPerformed(evt);
+            }
+        });
 
         infoPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -89,7 +99,7 @@ public class EmpInfoUI extends javax.swing.JFrame {
                             .addComponent(empIDTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(hoursTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(payDueTextField)))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
                 .addContainerGap())
         );
         infoPanelLayout.setVerticalGroup(
@@ -129,11 +139,11 @@ public class EmpInfoUI extends javax.swing.JFrame {
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(generateBttn)
-                .addGap(36, 36, 36)
+                .addGap(26, 26, 26)
                 .addComponent(closeBttn)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGap(171, 171, 171))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +154,7 @@ public class EmpInfoUI extends javax.swing.JFrame {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,6 +178,10 @@ public class EmpInfoUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void closeBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBttnActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_closeBttnActionPerformed
 
     /**
      * @param args the command line arguments

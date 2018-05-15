@@ -12,6 +12,7 @@ import model.Employee;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 
 public class PaycheckAppUI extends javax.swing.JFrame {
     private Controller controller;
@@ -178,6 +179,7 @@ public class PaycheckAppUI extends javax.swing.JFrame {
             }
         });
         employeeTable.setColumnSelectionAllowed(true);
+        employeeTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         employeeTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(employeeTable);
         employeeTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -311,9 +313,17 @@ public class PaycheckAppUI extends javax.swing.JFrame {
 
     private void displayInfoBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayInfoBttnActionPerformed
         if (isInitialized) {
-            EmpInfoUI info = new EmpInfoUI(selectedEmp);
-            info.setLocationRelativeTo(this);
-            info.setVisible(isInitialized);
+            try {
+                DefaultTableModel model = (DefaultTableModel) employeeTable.getModel();
+                Object value = model.getValueAt(employeeTable.getSelectedRow(), 0);
+                selectedEmp = controller.getEmployee((String) value);
+                EmpInfoUI info = new EmpInfoUI(selectedEmp);
+                info.setLocationRelativeTo(this);
+                info.setVisible(isInitialized);
+            }
+            catch (NullPointerException np) {
+                np.printStackTrace();
+            }
         }
     }//GEN-LAST:event_displayInfoBttnActionPerformed
 
