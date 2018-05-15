@@ -18,6 +18,7 @@ public class EmpInfoUI extends javax.swing.JFrame {
     }
     public EmpInfoUI(Employee emp) {
         initComponents();
+        this.setLocationRelativeTo(this);
         this.currentEmp = emp;
     }
 
@@ -47,7 +48,7 @@ public class EmpInfoUI extends javax.swing.JFrame {
         titleLabel = new javax.swing.JLabel();
         generateBttn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         closeBttn.setText("Close");
 

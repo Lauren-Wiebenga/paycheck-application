@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/view/PaycheckAppUI.java</file>
-            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/model/Data.java</file>
-            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/business/Company.java</file>
-            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/business/Employee.java</file>
+            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/view/EmpInfoUI.java</file>
+            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/control/Controller.java</file>
+            <file>file:/Users/lauren/NetBeansProjects/PaycheckApplication/src/model/EmpDB.java</file>
         </group>
     </open-files>
 </project-private>

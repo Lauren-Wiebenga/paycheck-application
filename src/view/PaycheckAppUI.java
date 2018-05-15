@@ -23,7 +23,9 @@ public class PaycheckAppUI extends javax.swing.JFrame {
     
     public PaycheckAppUI() {
         initComponents();
+        this.setLocationRelativeTo(this);
         controller = new Controller();
+        isInitialized = true;
     }
 
     /**
@@ -41,7 +43,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         optionPanel = new javax.swing.JPanel();
         chooseFileLabel = new javax.swing.JLabel();
         chooseFileText = new javax.swing.JTextField();
-        searchLabel = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
         searchByLabel = new javax.swing.JLabel();
         nameRadioBttn = new javax.swing.JRadioButton();
@@ -73,13 +74,19 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         chooseFileLabel.setText("Choose File:");
 
         chooseFileText.setEditable(false);
+        chooseFileText.setText("select file ...");
         chooseFileText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 chooseFileTextMouseClicked(evt);
             }
         });
 
-        searchLabel.setText("Search:");
+        searchTextField.setText("enter search term ...");
+        searchTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTextFieldFocusGained(evt);
+            }
+        });
 
         searchByLabel.setText("Search By:");
 
@@ -108,17 +115,15 @@ public class PaycheckAppUI extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(optionPanelLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchLabel)
-                            .addComponent(searchByLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(optionPanelLayout.createSequentialGroup()
+                                .addComponent(searchByLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nameRadioBttn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(numberRadioBttn))
                             .addGroup(optionPanelLayout.createSequentialGroup()
-                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBttn)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -143,8 +148,7 @@ public class PaycheckAppUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBttn)
-                    .addComponent(searchLabel))
+                    .addComponent(searchBttn))
                 .addContainerGap())
         );
 
@@ -152,17 +156,14 @@ public class PaycheckAppUI extends javax.swing.JFrame {
 
         employeeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Employee Name", "Employee Number"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false
@@ -186,6 +187,11 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         }
 
         displayInfoBttn.setText("Display Info");
+        displayInfoBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                displayInfoBttnActionPerformed(evt);
+            }
+        });
 
         exitBttn.setText("Exit");
         exitBttn.addActionListener(new java.awt.event.ActionListener() {
@@ -200,34 +206,32 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         resultsPanel.setLayout(resultsPanelLayout);
         resultsPanelLayout.setHorizontalGroup(
             resultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(clearBttn)
-                .addGap(36, 36, 36)
-                .addComponent(exitBttn)
-                .addGap(113, 113, 113))
             .addGroup(resultsPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(resultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(resultsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(resultsPanelLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(displayInfoBttn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(displayInfoBttn)
+                        .addGap(41, 41, 41)
+                        .addComponent(clearBttn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(exitBttn)
+                        .addGap(30, 30, 30))))
         );
         resultsPanelLayout.setVerticalGroup(
             resultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(displayInfoBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(resultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(displayInfoBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(exitBttn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(121, 121, 121))
+                .addGap(130, 130, 130))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -250,7 +254,7 @@ public class PaycheckAppUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(optionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(resultsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -291,7 +295,7 @@ public class PaycheckAppUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
@@ -305,24 +309,44 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitBttnActionPerformed
 
+    private void displayInfoBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_displayInfoBttnActionPerformed
+        if (isInitialized) {
+            EmpInfoUI info = new EmpInfoUI(selectedEmp);
+            info.setLocationRelativeTo(this);
+            info.setVisible(isInitialized);
+        }
+    }//GEN-LAST:event_displayInfoBttnActionPerformed
+
     private void chooseFileTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseFileTextMouseClicked
         JFileChooser f = new JFileChooser("."); // display current dir
-//        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file(*.csv)", "CSV");
-//        f.setFileFilter(filter); // filter for CSV files
+        //        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file(*.csv)", "CSV");
+        //        f.setFileFilter(filter); // filter for CSV files
         JDialog jd = new JDialog();
         int rval = f.showOpenDialog(jd);
         String filename = f.getSelectedFile().getAbsolutePath();
         try {
+            chooseFileText.setText(filename);
             controller.createDB(filename);
+            controller.buildTable(employeeTable);
             isInitialized = true;
         }
         catch (FileNotFoundException ex) {
+            chooseFileText.setText("Error occurred - no file found");
             isInitialized = false;
         }
         catch (IOException ioe) {
+            chooseFileText.setText("Error occurred reading file");
+            isInitialized = false;
+        }
+        catch (NullPointerException np) {
+            chooseFileText.setText("Error occurred with file format");
             isInitialized = false;
         }
     }//GEN-LAST:event_chooseFileTextMouseClicked
+
+    private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
+        searchTextField.setText("");
+    }//GEN-LAST:event_searchTextFieldFocusGained
 
     
     
@@ -387,7 +411,6 @@ public class PaycheckAppUI extends javax.swing.JFrame {
     private javax.swing.JPanel resultsPanel;
     private javax.swing.JButton searchBttn;
     private javax.swing.JLabel searchByLabel;
-    private javax.swing.JLabel searchLabel;
     private javax.swing.ButtonGroup searchOptions;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLabel titleLabel;

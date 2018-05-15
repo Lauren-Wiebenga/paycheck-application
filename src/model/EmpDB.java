@@ -7,12 +7,14 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.table.DefaultTableModel;
 
 public class EmpDB {
     private TreeMap<Integer,Employee> empID;
@@ -26,14 +28,14 @@ public class EmpDB {
         pattern = Pattern.compile(
                 "([a-zA-Z -,]{1,40}),"
               + "(\\d{1,25}),"
-              + "\\$(\\d{1,3}\\.\\d{2}),"
+              + "\\$(\\d{1,4}\\.\\d{2}),"
               + "(\\d{1,3}\\.\\d{1})");
         loadData(file);
     }
     
     public Employee query(Integer id) {
         if (empID.containsKey(id)) {
-            return empID.get(id);
+            return this.empID.get(id);
         }
         else {
             throw new NullPointerException();
@@ -41,10 +43,16 @@ public class EmpDB {
     }
     public Employee query(String name) {
         if (empName.containsKey(name)) {
-            return  empName.get(name);
+            return  this.empName.get(name);
         }
         else {
             throw new NullPointerException();
+        }
+    }
+    
+    public void buildTable(DefaultTableModel model) {
+        for (Map.Entry<String,Employee> entry : empName.entrySet()) {
+            model.addRow(new Object[]{entry.getValue().getName(),entry.getValue().getEmpID()});
         }
     }
     
@@ -57,7 +65,7 @@ public class EmpDB {
         BufferedReader input = new BufferedReader(new FileReader(new File(employeeFile)));
         String line = input.readLine();
         Matcher match;
-        while (line != null) {
+        while (input.ready()) {
             match = pattern.matcher(line);
             if (match.find()) {
                 System.out.println(match.group(1));
