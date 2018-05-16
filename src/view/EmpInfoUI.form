@@ -229,6 +229,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Generate Paycheck"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateBttnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

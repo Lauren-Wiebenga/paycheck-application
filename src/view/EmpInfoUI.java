@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import model.Employee;
 
 public class EmpInfoUI extends javax.swing.JFrame {
@@ -142,6 +143,11 @@ public class EmpInfoUI extends javax.swing.JFrame {
         titleLabel.setText("Employee Information");
 
         generateBttn.setText("Generate Paycheck");
+        generateBttn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateBttnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -191,6 +197,11 @@ public class EmpInfoUI extends javax.swing.JFrame {
     private void closeBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBttnActionPerformed
         this.dispose();
     }//GEN-LAST:event_closeBttnActionPerformed
+
+    private void generateBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBttnActionPerformed
+        String msg = String.format("%s : %s\n%s", currentEmp.getName(), currentEmp.getPayDue(), currentEmp.getAmount());
+        JOptionPane.showMessageDialog(this, msg);
+    }//GEN-LAST:event_generateBttnActionPerformed
 
     /**
      * @param args the command line arguments

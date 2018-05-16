@@ -70,9 +70,9 @@ public class EmpDB {
     
     private void loadData(String employeeFile) throws FileNotFoundException, IOException {
         BufferedReader input = new BufferedReader(new FileReader(new File(employeeFile)));
-        String line = input.readLine();
         Matcher match;
-        while (input.ready()) {
+        String line;
+        while ((line = input.readLine()) != null) {
             match = pattern.matcher(line);
             if (match.find()) {
                 System.out.println(match.group(1));
@@ -83,7 +83,6 @@ public class EmpDB {
                 empID.put(Integer.parseInt(match.group(2)), emp);
                 empName.put(match.group(1), emp);
             }
-            line = input.readLine();
         }
     }
 }

@@ -12,6 +12,7 @@ import model.Employee;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PaycheckAppUI extends javax.swing.JFrame {
@@ -283,6 +284,11 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         menuFile.setText("File");
 
         menuOpen.setText("Open File");
+        menuOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuOpenActionPerformed(evt);
+            }
+        });
         menuFile.add(menuOpen);
 
         menuExit.setText("Exit");
@@ -298,9 +304,19 @@ public class PaycheckAppUI extends javax.swing.JFrame {
         menuHelp.setText("Help");
 
         menuHow.setText("How to Use");
+        menuHow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuHowActionPerformed(evt);
+            }
+        });
         menuHelp.add(menuHow);
 
         menuAbout.setText("About");
+        menuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAboutActionPerformed(evt);
+            }
+        });
         menuHelp.add(menuAbout);
 
         menuBar.add(menuHelp);
@@ -345,15 +361,13 @@ public class PaycheckAppUI extends javax.swing.JFrame {
                 np.printStackTrace();
             }
             catch (ArrayIndexOutOfBoundsException ae) {
-                return;
+                searchTextField.setText("no employee found, try again");
             }
         }
     }//GEN-LAST:event_displayInfoBttnActionPerformed
 
     private void chooseFileTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chooseFileTextMouseClicked
         JFileChooser f = new JFileChooser("."); // display current dir
-        //        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file(*.csv)", "CSV");
-        //        f.setFileFilter(filter); // filter for CSV files
         JDialog jd = new JDialog();
         int rval = f.showOpenDialog(jd);
         String filename = f.getSelectedFile().getAbsolutePath();
@@ -421,6 +435,40 @@ public class PaycheckAppUI extends javax.swing.JFrame {
             controller.buildTable(employeeTable, nameRadioBttn.isSelected());
         }
     }//GEN-LAST:event_numberRadioBttnActionPerformed
+
+    private void menuHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHowActionPerformed
+        JOptionPane.showMessageDialog(this, "Display employee information and generate paycheck.\n"
+                + "File format:\nName,ID,Wage,Hours");
+    }//GEN-LAST:event_menuHowActionPerformed
+
+    private void menuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAboutActionPerformed
+        JOptionPane.showMessageDialog(this,"Developed by Lauren Wiebenga.");
+    }//GEN-LAST:event_menuAboutActionPerformed
+
+    private void menuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuOpenActionPerformed
+        JFileChooser f = new JFileChooser("."); // display current dir
+        JDialog jd = new JDialog();
+        int rval = f.showOpenDialog(jd);
+        String filename = f.getSelectedFile().getAbsolutePath();
+        try {
+            chooseFileText.setText(filename);
+            controller.createDB(filename);
+            controller.buildTable(employeeTable, nameRadioBttn.isSelected());
+            isInitialized = true;
+        }
+        catch (FileNotFoundException ex) {
+            chooseFileText.setText("Error occurred - no file found");
+            isInitialized = false;
+        }
+        catch (IOException ioe) {
+            chooseFileText.setText("Error occurred reading file");
+            isInitialized = false;
+        }
+        catch (NullPointerException np) {
+            chooseFileText.setText("Error occurred with file format");
+            isInitialized = false;
+        }
+    }//GEN-LAST:event_menuOpenActionPerformed
 
     
     

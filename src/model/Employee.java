@@ -13,7 +13,7 @@ public class Employee implements DoubleToText {
     final private int empID; // immutable
     private final Double wage;
     private final Double hours;
-    private String payDue;
+    private Double payDue;
     private String amount;
     
     /*
@@ -24,8 +24,8 @@ public class Employee implements DoubleToText {
         this.empID = id;
         this.wage = wage;
         this.hours = hours;
-        this.payDue = String.format("$%.2f", wage * hours);
-        this.amount = getTextAmount(Double.parseDouble(this.payDue.substring(1)));
+        this.payDue = Math.round((wage * hours) * 100.0) / 100.0;
+        this.amount = getTextAmount(this.payDue);
     }
     
     /*
@@ -44,7 +44,7 @@ public class Employee implements DoubleToText {
         return Double.toString(this.hours);
     }
     public String getPayDue() {
-        return this.payDue;
+        return String.format("$%.2f", this.payDue);
     }
     public String getAmount() {
         return this.amount;
@@ -60,7 +60,7 @@ public class Employee implements DoubleToText {
     }
     @Override
     public int setCents(Double amount) {
-        int wholeAmount = (int)(amount * 100);
+        int wholeAmount = (int)(Math.round(amount * 100) % 100);
         return wholeAmount % 100;
     }
     @Override
@@ -81,8 +81,8 @@ public class Employee implements DoubleToText {
         int i = 0;
         while (amount > 0) {
             // set up variables
-            String buffer = "";
-            int temp = 0;
+            StringBuffer buffer = new StringBuffer();
+            int temp = 0; // holds one's place when handling two digits at once
             if (i % 2 == 0) { // for handling two digits at once
                 temp = amount % 10;
                 amount /= 10;
@@ -95,36 +95,36 @@ public class Employee implements DoubleToText {
                     // do nothing
                 }
                 else if (temp == 0) { // digits are 1-9 and 0
-                    buffer += NUMBERS[2][current - 1];
+                    buffer.append(NUMBERS[2][current - 1]);
                 }
                 else if (current == 0) { // digits are 0 and 1-9
-                    buffer += NUMBERS[0][temp - 1];
+                    buffer.append(NUMBERS[0][temp - 1]);
                 }
                 else if (current == 1) { // digits are 1 and 1-9
-                    buffer += NUMBERS[1][temp - 1];
+                    buffer.append(NUMBERS[1][temp - 1]);
                 }
                 else { // digits are 1-9 and 1-9
-                    buffer += NUMBERS[2][current - 1] + " " 
-                            + NUMBERS[0][temp - 1];
+                    buffer.append(NUMBERS[2][current - 1] + " " 
+                            + NUMBERS[0][temp - 1]);
                 }
             }
             else { // handle single digit 1-9
                 if (current != 0) {
-                    buffer += NUMBERS[0][current - 1];
+                    buffer.append(NUMBERS[0][current - 1]);
                 }
             }
             // add place values
             if ((i == 1 || i == 3 || i == 5) && current != 0) { // add "hundred"
-                buffer += " " + PLACES[0];
+                buffer.append(" " + PLACES[0]);
                 if (i == 1) {
-                    buffer += " ";
+                    buffer.append(" ");
                 }
             }
             if (i == 2) {
-                buffer += " " + PLACES[1] + " "; // add "thousand"
+                buffer.append(" " + PLACES[1] + " "); // add "thousand"
             }
             if (i == 4) {
-                buffer += " " + PLACES[2]; // add "million"
+                buffer.append(" " + PLACES[2]); // add "million"
             }
             result = buffer + result;
             i++;

@@ -5,3 +5,4 @@ Harry James,4,$100.00,12.0
 Molly Harris,5,$35.20,40.0
 Alex Young-West,6,$21.50,40.0
 Lucy Umbrage,7,$32.00,40.0
+Allie Turner,114,$51.35,40.5
