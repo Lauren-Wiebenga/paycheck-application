@@ -386,17 +386,20 @@ public class PaycheckAppUI extends javax.swing.JFrame {
             if (searchTextField.getText().matches("[\\w ,-]{1,}")) {
                 try {
                     selectedEmp = controller.getEmployee(searchTextField.getText());
-                    int row = Integer.parseInt(selectedEmp.getEmpID());
-                    employeeTable.setRowSelectionInterval(row - 1, 1);
-                    displayInfoBttn.doClick();
+                    EmpInfoUI info = new EmpInfoUI(selectedEmp);
+                    info.setLocationRelativeTo(this);
+                    info.setVisible(isInitialized); 
                 }
                 catch (NullPointerException npe) {
                     npe.printStackTrace();
                 }
+                catch (ArrayIndexOutOfBoundsException ae) {
+                    searchTextField.setText("no employee found, try again");
+                }
             }
         }
         else {
-            searchTextField.setText("Please load file before searching");
+            searchTextField.setText("please load file before searching");
         }
     }//GEN-LAST:event_searchBttnActionPerformed
 
