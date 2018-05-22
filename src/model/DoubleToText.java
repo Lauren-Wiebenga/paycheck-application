@@ -19,7 +19,7 @@ public interface DoubleToText {
             "Seventeen", "Eighteen", "Nineteen"
         },
         {
-            "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixy", "Seventy",
+            "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy",
             "Eighty", "Ninety"
         }
     };
