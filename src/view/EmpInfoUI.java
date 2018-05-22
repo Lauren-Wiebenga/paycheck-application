@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import model.Employee;
 
@@ -200,9 +204,25 @@ public class EmpInfoUI extends javax.swing.JFrame {
 
     private void generateBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBttnActionPerformed
         String msg = String.format("%s : %s\n%s", currentEmp.getName(), currentEmp.getPayDue(), currentEmp.getAmount());
-        JOptionPane.showMessageDialog(this, msg);
+        //JOptionPane.showMessageDialog(this, msg);
+        String filename = String.format("%s-paycheck.txt", currentEmp.getName());
+        filename = filename.replace(" ", "_");
+        try {
+            printToFile(msg, filename);
+            JOptionPane.showMessageDialog(this,"saved successfully to : " + filename);
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+            JOptionPane.showMessageDialog(this,"error occurred while saving.");
+        }
     }//GEN-LAST:event_generateBttnActionPerformed
 
+    public void printToFile(String content, String filename) throws IOException{
+        BufferedWriter bw = new BufferedWriter(new FileWriter(new File("/Users/lauren/Desktop/" + filename)));
+        bw.write(content);
+        bw.close();
+    }
+    
     /**
      * @param args the command line arguments
      */

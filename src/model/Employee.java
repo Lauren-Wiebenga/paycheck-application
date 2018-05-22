@@ -13,8 +13,8 @@ public class Employee implements DoubleToText {
     final private int empID; // immutable
     private final Double wage;
     private final Double hours;
-    private Double payDue;
-    private String amount;
+    private final Double payDue;
+    private final String amount;
     
     /*
      *  CONSTRUCTORS
